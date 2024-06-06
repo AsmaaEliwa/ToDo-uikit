@@ -8,13 +8,18 @@
 import UIKit
 
 class ToDoListViewControllerTableViewController: UITableViewController {
-var items = ["buy milk", "buy banana", "buy a toy"]
+    var items:[String] = []
+    let userDefault = UserDefaults.standard
+    
+    var textFeild:UITextField?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if let itemsArray = userDefault.object(forKey: "itemsArray") as? [String]{
+            items = itemsArray
+        }
        
     }
-
+   
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -27,6 +32,26 @@ var items = ["buy milk", "buy banana", "buy a toy"]
         return items.count
     }
 
+    @IBAction func addMoreItemButton(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Add more To Do", message: "What else should we add to do :) ", preferredStyle: .alert)
+        let addAction = UIAlertAction(title: "Add", style: .default, handler: {action in
+            if let newItem = self.textFeild?.text{
+                self.items.append(newItem)
+                print("added")
+                self.userDefault.set(self.items, forKey: "itemsArray")
+                self.tableView.reloadData()
+            }
+            
+        })
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
+        alert.addAction(addAction)
+        alert.addAction(cancelAction)
+        alert.addTextField { alertTextField in
+            alertTextField.placeholder = "Enter New Item"
+            self.textFeild = alertTextField
+        }
+        present(alert, animated: true ,completion: nil)
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
@@ -34,7 +59,15 @@ var items = ["buy milk", "buy banana", "buy a toy"]
         cell.textLabel?.text = items[indexPath.row]
         return cell
     }
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(items[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark{
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        }else{
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

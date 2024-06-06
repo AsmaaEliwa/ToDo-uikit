@@ -30,7 +30,14 @@
                             <outlet property="delegate" destination="Szy-XU-J1s" id="Aiq-8J-8Zy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="MyToDo" id="na8-MD-el7"/>
+                    <navigationItem key="navigationItem" title="MyToDo" id="na8-MD-el7">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="NYW-HP-Xug">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addMoreItemButton:" destination="Szy-XU-J1s" id="URF-3f-VCX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Bg-9G-VfO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -44,6 +51,14 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HLf-9G-4QF">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.28270460040000001" green="0.54444688819999998" blue="0.62069721229999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="tintColor" red="0.28270460040000001" green="0.54444688819999998" blue="0.62069721229999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

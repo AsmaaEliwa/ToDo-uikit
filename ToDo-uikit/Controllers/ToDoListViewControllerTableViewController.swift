@@ -8,13 +8,12 @@
 import UIKit
 
 class ToDoListViewControllerTableViewController: UITableViewController {
-    var items:[String] = []
+    var items:[Item] = []
     let userDefault = UserDefaults.standard
-    
     var textFeild:UITextField?
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let itemsArray = userDefault.object(forKey: "itemsArray") as? [String]{
+        if let itemsArray = userDefault.object(forKey: "itemsArray") as? [Item]{
             items = itemsArray
         }
        
@@ -35,11 +34,13 @@ class ToDoListViewControllerTableViewController: UITableViewController {
     @IBAction func addMoreItemButton(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Add more To Do", message: "What else should we add to do :) ", preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Add", style: .default, handler: {action in
-            if let newItem = self.textFeild?.text{
-                self.items.append(newItem)
-                print("added")
-                self.userDefault.set(self.items, forKey: "itemsArray")
-                self.tableView.reloadData()
+            if let text = self.textFeild?.text{
+                let newItem = Item(name:text , status:false)
+                    self.items.append(newItem)
+                    print("added")
+                    self.userDefault.set(self.items, forKey: "itemsArray")
+                    self.tableView.reloadData()
+                
             }
             
         })
@@ -56,16 +57,19 @@ class ToDoListViewControllerTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
 
-        cell.textLabel?.text = items[indexPath.row]
+        cell.textLabel?.text = items[indexPath.row].name
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(items[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark{
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        }else{
+        if items[indexPath.row].status == false{
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            items[indexPath.row].status = true
+           
+        }else{
+            items[indexPath.row].status = false
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
         }
     }
 

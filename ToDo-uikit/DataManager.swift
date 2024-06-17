@@ -66,4 +66,14 @@ class DataManager:ObservableObject{
             print("coudlnt update \(error)")
         }
     }
+    func deleteItem(item:Item){
+        persistentContainer.viewContext.delete(item)
+        do {
+            try persistentContainer.viewContext.save()
+            print("deleted")
+            fetchItems()
+        }catch{
+            print("coudlnt deleting \(error)")
+        }
+    }
 }

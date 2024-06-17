@@ -17,7 +17,7 @@ class ToDoListViewControllerTableViewController: UITableViewController {
 //        if let itemsArray = userDefault.object(forKey: "itemsArray") as? [Item]{
 //            items = itemsArray
 //        }
-       
+       loadItemsFromPList()
     }
    
     // MARK: - Table view data source
@@ -39,7 +39,7 @@ class ToDoListViewControllerTableViewController: UITableViewController {
                 let newItem = Item(name:text , status:false)
                     self.items.append(newItem)
                     print("added")
-                //                self.userDefault.set(self.items, forKey: "itemsArray") // this will make the app crach because we are trying to save item model so we gonna use the plist 
+                //                self.userDefault.set(self.items, forKey: "itemsArray") // this will make the app crach because we are trying to save item model so we gonna use the plist
                 self.save()
                 
             }
@@ -82,6 +82,17 @@ class ToDoListViewControllerTableViewController: UITableViewController {
              print(error)
          }
              self.tableView.reloadData()
+    }
+    func loadItemsFromPList(){
+        let decoder = PropertyListDecoder()
+        if let data = try? Data(contentsOf: filePath!){
+            do{
+                let itemsArray = try decoder.decode([Item].self, from: data)
+                items = itemsArray
+            }catch{
+                print(error)
+            }
+        }
     }
     /*
     // Override to support conditional editing of the table view.

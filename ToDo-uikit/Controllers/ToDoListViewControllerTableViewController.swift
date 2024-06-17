@@ -7,7 +7,8 @@
 
 import UIKit
 import Combine
-class ToDoListViewControllerTableViewController: UITableViewController {
+import CoreData
+class ToDoListViewControllerTableViewController: UITableViewController ,UISearchBarDelegate {
     var cancellables = Set<AnyCancellable>()
       let dataManager = DataManager.shared
      var items:[Item] = []
@@ -153,5 +154,30 @@ class ToDoListViewControllerTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        items = items.filter{$0.title == searchBar.text}
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        if let searchText = searchBar.text{
+            let predicate = NSPredicate(format: "title CONTAINS [cd] %@",searchText)
+            request.predicate = predicate
+            let sortDiscr = NSSortDescriptor(key: "title", ascending: true)
+            request.sortDescriptors = [sortDiscr]
+            do{
+               let result =  try dataManager.persistentContainer.viewContext.fetch(request)
+                items = result
+                tableView.reloadData()
+            }catch{
+                print(error)
+            }
+        }
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0{
+            dataManager.fetchItems()
+            DispatchQueue.main.async{
+                searchBar.resignFirstResponder()
+            }
+            
+        }
+    }
 }

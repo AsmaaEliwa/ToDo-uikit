@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Item: Codable{
-    let name:String
-    var status:Bool
-}
+//struct Item: Codable{
+//    let name:String
+//    var status:Bool
+//}

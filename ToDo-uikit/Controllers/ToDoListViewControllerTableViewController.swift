@@ -6,10 +6,12 @@
 //
 
 import UIKit
-
+import Combine
 class ToDoListViewControllerTableViewController: UITableViewController {
-    var items:[Item] = []
-    let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items")
+    var cancellables = Set<AnyCancellable>()
+      let dataManager = DataManager.shared
+     var items:[Item] = []
+    let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     let userDefault = UserDefaults.standard
     var textFeild:UITextField?
     override func viewDidLoad() {
@@ -17,7 +19,18 @@ class ToDoListViewControllerTableViewController: UITableViewController {
 //        if let itemsArray = userDefault.object(forKey: "itemsArray") as? [Item]{
 //            items = itemsArray
 //        }
-       loadItemsFromPList()
+        DataManager.shared.$items
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak self] updatedItems in
+                        self?.items = updatedItems
+                        self?.tableView.reloadData()
+                    }
+                    .store(in: &cancellables)
+                
+                // Initial fetch
+                
+        items = dataManager.items
+//       loadItemsFromPList()
     }
    
     // MARK: - Table view data source
@@ -29,6 +42,7 @@ class ToDoListViewControllerTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        
         return items.count
     }
 
@@ -36,11 +50,13 @@ class ToDoListViewControllerTableViewController: UITableViewController {
         let alert = UIAlertController(title: "Add more To Do", message: "What else should we add to do :) ", preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Add", style: .default, handler: {action in
             if let text = self.textFeild?.text{
-                let newItem = Item(name:text , status:false)
-                    self.items.append(newItem)
-                    print("added")
+//                let newItem = Item(name:text , status:false)
+                self.dataManager.addItem(title:text)
+                self.tableView.reloadData()
+//                    self.items.append(newItem)
+//                    print("added")
                 //                self.userDefault.set(self.items, forKey: "itemsArray") // this will make the app crach because we are trying to save item model so we gonna use the plist
-                self.save()
+//                self.save()
                 
             }
             
@@ -58,7 +74,7 @@ class ToDoListViewControllerTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
 
-        cell.textLabel?.text = items[indexPath.row].name
+        cell.textLabel?.text = items[indexPath.row].title
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -73,27 +89,27 @@ class ToDoListViewControllerTableViewController: UITableViewController {
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
         }
     }
-    func save(){
-        let encoder = PropertyListEncoder()
-         do{
-             let data = try encoder.encode(items)
-             try data.write(to: filePath!)
-         }catch{
-             print(error)
-         }
-             self.tableView.reloadData()
-    }
-    func loadItemsFromPList(){
-        let decoder = PropertyListDecoder()
-        if let data = try? Data(contentsOf: filePath!){
-            do{
-                let itemsArray = try decoder.decode([Item].self, from: data)
-                items = itemsArray
-            }catch{
-                print(error)
-            }
-        }
-    }
+//    func save(){
+//        let encoder = PropertyListEncoder()
+//         do{
+//             let data = try encoder.encode(items)
+//             try data.write(to: filePath!)
+//         }catch{
+//             print(error)
+//         }
+//             self.tableView.reloadData()
+//    }
+//    func loadItemsFromPList(){
+//        let decoder = PropertyListDecoder()
+//        if let data = try? Data(contentsOf: filePath!){
+//            do{
+//                let itemsArray = try decoder.decode([Item].self, from: data)
+//                items = itemsArray
+//            }catch{
+//                print(error)
+//            }
+//        }
+//    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

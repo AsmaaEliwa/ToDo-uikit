@@ -9,13 +9,14 @@ import UIKit
 
 class ToDoListViewControllerTableViewController: UITableViewController {
     var items:[Item] = []
+    let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items")
     let userDefault = UserDefaults.standard
     var textFeild:UITextField?
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let itemsArray = userDefault.object(forKey: "itemsArray") as? [Item]{
-            items = itemsArray
-        }
+//        if let itemsArray = userDefault.object(forKey: "itemsArray") as? [Item]{
+//            items = itemsArray
+//        }
        
     }
    
@@ -38,8 +39,8 @@ class ToDoListViewControllerTableViewController: UITableViewController {
                 let newItem = Item(name:text , status:false)
                     self.items.append(newItem)
                     print("added")
-                    self.userDefault.set(self.items, forKey: "itemsArray")
-                    self.tableView.reloadData()
+                //                self.userDefault.set(self.items, forKey: "itemsArray") // this will make the app crach because we are trying to save item model so we gonna use the plist 
+                self.save()
                 
             }
             
@@ -72,7 +73,16 @@ class ToDoListViewControllerTableViewController: UITableViewController {
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
         }
     }
-
+    func save(){
+        let encoder = PropertyListEncoder()
+         do{
+             let data = try encoder.encode(items)
+             try data.write(to: filePath!)
+         }catch{
+             print(error)
+         }
+             self.tableView.reloadData()
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

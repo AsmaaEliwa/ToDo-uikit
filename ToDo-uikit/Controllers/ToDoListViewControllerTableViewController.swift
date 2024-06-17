@@ -12,6 +12,7 @@ class ToDoListViewControllerTableViewController: UITableViewController {
       let dataManager = DataManager.shared
      var items:[Item] = []
     let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+   
     let userDefault = UserDefaults.standard
     var textFeild:UITextField?
     override func viewDidLoad() {
@@ -19,6 +20,7 @@ class ToDoListViewControllerTableViewController: UITableViewController {
 //        if let itemsArray = userDefault.object(forKey: "itemsArray") as? [Item]{
 //            items = itemsArray
 //        }
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         DataManager.shared.$items
                     .receive(on: DispatchQueue.main)
                     .sink { [weak self] updatedItems in
@@ -73,21 +75,16 @@ class ToDoListViewControllerTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-
+        cell.accessoryType = items[indexPath.row].status ? .checkmark : .none
         cell.textLabel?.text = items[indexPath.row].title
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(items[indexPath.row])
-        tableView.deselectRow(at: indexPath, animated: true)
-        if items[indexPath.row].status == false{
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-            items[indexPath.row].status = true
-           
-        }else{
-            items[indexPath.row].status = false
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        }
+        let item = items[indexPath.row]
+           dataManager.updateItem(item: item)
+           tableView.reloadRows(at: [indexPath], with: .automatic)
+           tableView.deselectRow(at: indexPath, animated: true)
+
     }
 //    func save(){
 //        let encoder = PropertyListEncoder()

@@ -34,7 +34,7 @@ class DataManager:ObservableObject{
     
     func addItem(title:String){
         if let entity = NSEntityDescription.entity(forEntityName: "Item", in:persistentContainer.viewContext ){
-            var newItem = NSManagedObject(entity: entity, insertInto: persistentContainer.viewContext)
+            let newItem = NSManagedObject(entity: entity, insertInto: persistentContainer.viewContext)
             newItem.setValue(title, forKey: "title")
             do{
                 try persistentContainer.viewContext.save()
@@ -53,6 +53,17 @@ class DataManager:ObservableObject{
             self.items = data
         }catch{
             print(error)
+        }
+    }
+    
+    func updateItem(item:Item){
+        item.status.toggle()
+        do {
+            try persistentContainer.viewContext.save()
+            print("updated")
+            fetchItems()
+        }catch{
+            print("coudlnt update \(error)")
         }
     }
 }

@@ -32,14 +32,15 @@ class DataManager:ObservableObject{
        }()
     
     
-    func addItem(title:String){
+    func addItem(categry:Categry ,title:String){
         if let entity = NSEntityDescription.entity(forEntityName: "Item", in:persistentContainer.viewContext ){
             let newItem = NSManagedObject(entity: entity, insertInto: persistentContainer.viewContext)
             newItem.setValue(title, forKey: "title")
+            categry.addToItems(newItem as! Item)
             do{
                 try persistentContainer.viewContext.save()
                 print("saved")
-                fetchItems()
+//                fetchItems()
             }catch{
                 print(error)
             }
@@ -76,4 +77,5 @@ class DataManager:ObservableObject{
             print("coudlnt deleting \(error)")
         }
     }
+   
 }

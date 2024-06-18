@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="22G91" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Categry" representedClassName=".Categry" syncable="YES">
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="categry" inverseEntity="Item"/>
+    </entity>
     <entity name="Item" representedClassName=".Item" syncable="YES">
         <attribute name="status" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="categry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Categry" inverseName="items" inverseEntity="Categry"/>
     </entity>
 </model>

@@ -27,15 +27,24 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.view.addSubview(tableView)
         fetchData()
 //        binding()   // 1 update the table any time the users changes by using combine
-        
+        setupObservers()
       
     }
     
     func didFinishFetch(users: [User]) {
         if !users.isEmpty {
             
-            tableView.reloadData()
+//            tableView.reloadData()
         }
+    }
+    
+    func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: .didFinishFetchUsers, object: nil)
+           
+        }
+    @objc func reload(){
+        
+        tableView.reloadData()
     }
     
     func fetchData() {

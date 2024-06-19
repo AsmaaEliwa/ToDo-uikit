@@ -31,7 +31,10 @@ class UserViewModel: ObservableObject {
                 switch result {
                 case .success(let users):
                     self.users = users
-                    self.delegate?.didFinishFetch(users: users)
+                    DispatchQueue.main.async{
+                        self.delegate?.didFinishFetch(users: users)
+                        NotificationCenter.default.post(name: .didFinishFetchUsers, object: nil)
+                    }
                 case .failure(let error):
                     self.serviceError = error
                 }

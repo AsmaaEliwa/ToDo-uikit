@@ -22,6 +22,10 @@
 		7FCD371B2C20B49200C07221 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD37172C20B49200C07221 /* Item+CoreDataProperties.swift */; };
 		7FCD371C2C20B49200C07221 /* Categry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD37182C20B49200C07221 /* Categry+CoreDataClass.swift */; };
 		7FCD371D2C20B49200C07221 /* Categry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD37192C20B49200C07221 /* Categry+CoreDataProperties.swift */; };
+		7FCD371F2C21F97300C07221 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD371E2C21F97300C07221 /* UserViewController.swift */; };
+		7FCD37222C21FC2F00C07221 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD37212C21FC2F00C07221 /* UserModel.swift */; };
+		7FCD37262C21FED800C07221 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD37252C21FED800C07221 /* UserServices.swift */; };
+		7FCD37292C22040900C07221 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD37282C22040900C07221 /* UserViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,10 @@
 		7FCD37172C20B49200C07221 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7FCD37182C20B49200C07221 /* Categry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		7FCD37192C20B49200C07221 /* Categry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7FCD371E2C21F97300C07221 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		7FCD37212C21FC2F00C07221 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		7FCD37252C21FED800C07221 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		7FCD37282C22040900C07221 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +94,7 @@
 				7F0A01352C14800F005A276A /* Test.swift */,
 				7FCD36DF2C20845A00C07221 /* DataModel.xcdatamodeld */,
 				7FCD37092C20861900C07221 /* DataManager.swift */,
+				7FCD37202C21FC1400C07221 /* Test */,
 			);
 			path = "ToDo-uikit";
 			sourceTree = "<group>";
@@ -124,6 +133,41 @@
 				7FCD37192C20B49200C07221 /* Categry+CoreDataProperties.swift */,
 			);
 			path = CoreDataClasses;
+			sourceTree = "<group>";
+		};
+		7FCD37202C21FC1400C07221 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				7FCD37242C21FC8F00C07221 /* ViewController */,
+				7FCD37232C21FC3C00C07221 /* Models */,
+				7FCD37272C21FEEC00C07221 /* ViewModel */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		7FCD37232C21FC3C00C07221 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7FCD37212C21FC2F00C07221 /* UserModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7FCD37242C21FC8F00C07221 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7FCD371E2C21F97300C07221 /* UserViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		7FCD37272C21FEEC00C07221 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7FCD37252C21FED800C07221 /* UserServices.swift */,
+				7FCD37282C22040900C07221 /* UserViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,9 +248,13 @@
 				7FCD371A2C20B49200C07221 /* Item+CoreDataClass.swift in Sources */,
 				7FCD371B2C20B49200C07221 /* Item+CoreDataProperties.swift in Sources */,
 				7FCD36E12C20845A00C07221 /* DataModel.xcdatamodeld in Sources */,
+				7FCD37262C21FED800C07221 /* UserServices.swift in Sources */,
 				7F0A01312C136A7A005A276A /* ItemModel.swift in Sources */,
+				7FCD37292C22040900C07221 /* UserViewModel.swift in Sources */,
+				7FCD37222C21FC2F00C07221 /* UserModel.swift in Sources */,
 				7FCD371C2C20B49200C07221 /* Categry+CoreDataClass.swift in Sources */,
 				7FCD370D2C20B38A00C07221 /* CategeryViewController.swift in Sources */,
+				7FCD371F2C21F97300C07221 /* UserViewController.swift in Sources */,
 				7F0A011D2C12140D005A276A /* SceneDelegate.swift in Sources */,
 				7FCD370A2C20861900C07221 /* DataManager.swift in Sources */,
 			);

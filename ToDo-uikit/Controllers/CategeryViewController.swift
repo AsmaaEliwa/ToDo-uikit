@@ -12,6 +12,7 @@ class CategeryViewController: UITableViewController {
     var categries:[Categry] = []
     let context = DataManager.shared.persistentContainer.viewContext
     var textFiels:UITextField?
+    
     @IBAction func addCategryButton(_ sender: Any) {
         let alert = UIAlertController(title: "New categry", message: "Add new categry", preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Add", style: .default, handler: {action in

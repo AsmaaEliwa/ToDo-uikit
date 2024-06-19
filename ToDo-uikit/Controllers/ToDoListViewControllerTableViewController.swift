@@ -56,7 +56,7 @@ class ToDoListViewControllerTableViewController: UITableViewController ,UISearch
     func fetchCategries(){
         let request: NSFetchRequest<Categry> = Categry.fetchRequest()
         do{
-            let data = try context.fetch(request)
+            let _ = try context.fetch(request)
 //            categries = data
         }catch{
             print(error)

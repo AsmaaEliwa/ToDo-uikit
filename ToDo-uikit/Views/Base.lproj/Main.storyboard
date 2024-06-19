@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,14 +45,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mhk-A7-PbC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="799" y="-25"/>
+            <point key="canvasLocation" x="998" y="-15"/>
         </scene>
         <!--MyToDo-->
         <scene sceneID="rKN-LM-EBB">
             <objects>
                 <tableViewController id="Szy-XU-J1s" customClass="ToDoListViewControllerTableViewController" customModule="ToDo_uikit" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="prI-zH-BzL">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="Vcb-H5-iZx">
@@ -90,6 +91,22 @@
             </objects>
             <point key="canvasLocation" x="1790" y="-25"/>
         </scene>
+        <!--User View Controller-->
+        <scene sceneID="lOk-7o-yeA">
+            <objects>
+                <viewController id="DNH-Z3-YoP" customClass="UserViewController" customModule="ToDo_uikit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="X3L-ZP-XND">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="6yh-2H-5Tq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="DWK-M2-eao"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C6f-gx-05w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="568.70229007633588" y="-890.14084507042253"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="WLR-71-yCi">
             <objects>
@@ -109,7 +126,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="93e-iB-stg" kind="relationship" relationship="rootViewController" id="UEh-0G-RvQ"/>
+                        <segue destination="DNH-Z3-YoP" kind="relationship" relationship="rootViewController" id="wqq-J5-sEE"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lo1-La-hfu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
